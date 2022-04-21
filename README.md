@@ -33,3 +33,6 @@ Please tackle the following problems - use whatever approaches you'd normally us
 * The status should use a Bootstrap switch
 * No property of the sanctioned entity can be empty
 * The code needs to ensure that there cannot be more than one entity with the same name and domicile
+
+## Submitting your work
+Please create a pull request for the code you have developed and submit no later than 2 hours before your scheduled interview time. If you have any issues submitting your PR, please contact your recruitment partner.
