@@ -11,7 +11,7 @@ The project does not use any database. Sample _database_ items are stored in `Sa
 ## Requirements
 - Node.js version 10.9.0 or later
 - ASP.NET Core SDK 3.1
-- Visual Studio IDE
+- Visual Studio/VS Code IDE
 
 ## Getting started
 Open the solution in Visual Studio and run IIS Express. This will automatically install the required packages and will open the app in the browser. The Home page will provide you with the details about the content of the application and the tasks you are asked to tackle.
