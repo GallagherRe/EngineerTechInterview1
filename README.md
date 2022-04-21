@@ -22,6 +22,7 @@ As an insurance organisation, we are prevented from doing business with certain 
 This is a simple ASP.Net Core application with Angular, its goal is to keep a track of the number of organisations subject to sanctions in various countries and display these to the user. It includes following tabs:
 
 **Counter**: simple counter which is incremented by pressing a button
+
 **Sanctioned Entities**: table displaying sanctioned entities fetched from the server
 Please tackle the following problems - use whatever approaches you'd normally use in your day to day work:
 
