@@ -1,8 +1,9 @@
-﻿using System;
+﻿using ajg_technical_interview.Domain;
+using ajg_technical_interview.Domain.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using ajg_technical_interview.Models;
 
 namespace ajg_technical_interview.Services
 {
@@ -10,10 +11,10 @@ namespace ajg_technical_interview.Services
     {
         private static readonly IList<SanctionedEntity> SanctionedEntities = new List<SanctionedEntity>
         {
-            new SanctionedEntity { Name = "Forbidden Company", Domicile = "Mars", Accepted = false },
-            new SanctionedEntity { Name = "Allowed Company", Domicile = "Venus", Accepted = true },
-            new SanctionedEntity { Name = "Good Ltd", Domicile = "Saturn", Accepted = true },
-            new SanctionedEntity { Name = "Evil Plc", Domicile = "Venus", Accepted = false }
+            new SanctionedEntity { Id = new Guid("add30d1e-5b02-43fc-9bf7-9275839bd0dd"), Name = "Forbidden Company", Domicile = "Mars", Accepted = false },
+            new SanctionedEntity { Id = new Guid("513d4250-7033-4190-9a8d-616161185b1e"), Name = "Allowed Company", Domicile = "Venus", Accepted = true },
+            new SanctionedEntity { Id = new Guid("1e8b00cc-6799-4983-bc5a-cdd84107e67e"), Name = "Good Ltd", Domicile = "Saturn", Accepted = true },
+            new SanctionedEntity { Id = new Guid("7586e825-b3bb-4cd0-a5c3-7e9a4533bbb7"), Name = "Evil Plc", Domicile = "Venus", Accepted = false }
         };
 
         public async Task<IList<SanctionedEntity>> GetSanctionedEntitiesAsync()

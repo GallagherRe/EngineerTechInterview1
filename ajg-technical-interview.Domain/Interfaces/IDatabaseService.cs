@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using ajg_technical_interview.Models;
 
-namespace ajg_technical_interview.Services
+namespace ajg_technical_interview.Domain.Interfaces
 {
     public interface IDatabaseService
     {

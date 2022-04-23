@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using ajg_technical_interview.Services;
+using ajg_technical_interview.Domain.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ajg_technical_interview.Controllers
