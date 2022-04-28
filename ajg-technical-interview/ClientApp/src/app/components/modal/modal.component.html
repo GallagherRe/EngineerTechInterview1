@@ -1,0 +1,31 @@
+ 
+ <div class="modal-header">
+    <h4 class="modal-title">Create Sanction Entity</h4>
+     </div>
+  <div class="modal-body">
+    <form [formGroup]="sanctionEntityForm">
+        <div class="pb-3">
+
+        <label for="name" class="pr-3"> Name: </label>
+        <input id="name" type="text" formControlName="name">
+        </div>
+      <div class="pb-3">
+        <label for="domicile" class="pr-3"> Domicile: </label>
+        <input id="domicile" type="text" formControlName="domicile">
+      
+      </div>
+      <div class="pb-3">
+
+        <label for="last-name" class="pr-3"> Accepted: </label>
+          <select class="form-select" formControlName="accepted">
+            <option value="1">Yes</option>
+            <option value="0">No</option>
+          </select>
+          </div>
+      </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-danger" (click)="activeModal.close()">Close</button>
+    <button type="button"  class="btn btn-outline-dark" (click)="sendForm()"  [disabled]="!sanctionEntityForm.valid">Submit</button>
+ 
+</div>

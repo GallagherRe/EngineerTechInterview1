@@ -33,8 +33,18 @@ namespace ajg_technical_interview.Services
 
         public async Task<SanctionedEntity> CreateSanctionedEntityAsync(SanctionedEntity sanctionedEntity)
         {
+            bool check = checkIfExists(sanctionedEntity.Name, sanctionedEntity.Domicile);
+            if (check)
+            {
+                return null;
+            }
             SanctionedEntities.Add(sanctionedEntity);
             return await Task.FromResult(sanctionedEntity);
+        }
+        private bool checkIfExists(string name, string domicile)
+        {
+            bool containsItem = SanctionedEntities.Any(item => item.Name == name && item.Domicile == domicile);
+            return containsItem;
         }
     }
 }
