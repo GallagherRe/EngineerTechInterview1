@@ -116,5 +116,85 @@ namespace ajg_technical_interview.Tests
             //Act//Assert
             await Assert.ThrowsAsync<ArgumentException>(() => service.CreateSanctionedEntityAsync(entity));
         }
+
+        [Fact]
+        public async Task SanctionedEntityExistsAsync_WhenSanctionedEntityWithSameNameAndDomicileExists_ReturnsTrue()
+        {
+            //Arrange
+            IDatabaseService service = new DatabaseService();
+
+            var entity = new SanctionedEntity
+            {
+                Name = "Forbidden Company",
+                Domicile = "Mars",
+                Accepted = true
+            };
+
+            //Act
+            var actual = await service.SanctionedEntityExistsAsync(entity);
+
+            //Assert
+            actual.Should().BeTrue();
+        }
+
+        [Fact]
+        public async Task SanctionedEntityExistsAsync_WhenSanctionedEntityWithSameNameAndDifferentDomicileExists_ReturnsFalse()
+        {
+            //Arrange
+            IDatabaseService service = new DatabaseService();
+
+            var entity = new SanctionedEntity
+            {
+                Name = "Forbidden Company",
+                Domicile = "Venus",
+                Accepted = true
+            };
+
+            //Act
+            var actual = await service.SanctionedEntityExistsAsync(entity);
+
+            //Assert
+            actual.Should().BeFalse();
+        }
+
+        [Fact]
+        public async Task SanctionedEntityExistsAsync_WhenSanctionedEntityWithDifferentNameAndSameDomicileExists_ReturnsFalse()
+        {
+            //Arrange
+            IDatabaseService service = new DatabaseService();
+
+            var entity = new SanctionedEntity
+            {
+                Name = "Allowed Company",
+                Domicile = "Mars",
+                Accepted = true
+            };
+
+            //Act
+            var actual = await service.SanctionedEntityExistsAsync(entity);
+
+            //Assert
+            actual.Should().BeFalse();
+        }
+
+        [Fact]
+        public async Task SanctionedEntityExistsAsync_WhenSanctionedEntityWithSameNameAndDomicileDoesNotExist_ReturnsFalse()
+        {
+            //Arrange
+            IDatabaseService service = new DatabaseService();
+
+            var entity = new SanctionedEntity
+            {
+                Name = "Terminus City",
+                Domicile = "Terminus",
+                Accepted = true
+            };
+
+            //Act
+            var actual = await service.SanctionedEntityExistsAsync(entity);
+
+            //Assert
+            actual.Should().BeFalse();
+        }
     }
 }

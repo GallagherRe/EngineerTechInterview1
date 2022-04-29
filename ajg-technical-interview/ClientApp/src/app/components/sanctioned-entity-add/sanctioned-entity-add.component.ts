@@ -39,7 +39,7 @@ export class SanctionedEntityAddComponent implements OnInit {
                 this.router.navigate(["/sanctioned-entities/"]);               
             },
             error: error => {
-                this.errorMessage = error.message;
+                this.errorMessage = error.error;
             }
         });
     }

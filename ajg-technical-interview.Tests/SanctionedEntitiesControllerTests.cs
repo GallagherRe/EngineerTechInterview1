@@ -146,5 +146,31 @@ namespace ajg_technical_interview.Tests
 
             databaseService.Verify();
         }
+
+        [Fact]
+        public async Task CreateSanctionedEntity_WithEntityThatAlreadyExists_ReturnsBadRequest()
+        {
+            //Arrange
+            var entity = new Models.SanctionedEntity
+            {
+                Name = "Terminus City",
+                Domicile = "Terminus",
+                Accepted = true
+            };
+
+            var databaseService = new Mock<IDatabaseService>();
+            databaseService
+                .Setup(s => s.SanctionedEntityExistsAsync(It.IsAny<SanctionedEntity>()))
+                .ReturnsAsync(true);
+
+            var controller = new SanctionedEntitiesController(databaseService.Object, new SanctionedEntityMapper());
+
+            //Act
+            var result = (await controller.CreateSanctionedEntity(entity)) as BadRequestObjectResult;
+
+            //Assert
+            result.Should().NotBeNull();
+            result.Value.Should().Be("Entity already exists");
+        }
     }
 }

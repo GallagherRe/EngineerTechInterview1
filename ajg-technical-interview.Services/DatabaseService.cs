@@ -41,5 +41,10 @@ namespace ajg_technical_interview.Services
             SanctionedEntities.Add(sanctionedEntity);
             return await Task.FromResult(sanctionedEntity);
         }
+
+        public async Task<bool> SanctionedEntityExistsAsync(SanctionedEntity sanctionedEntity)
+        {
+            return await Task.FromResult(SanctionedEntities.Any(e => e.Name.Equals(sanctionedEntity.Name, StringComparison.InvariantCultureIgnoreCase) && e.Domicile.Equals(sanctionedEntity.Domicile, StringComparison.InvariantCultureIgnoreCase)));
+        }
     }
 }

@@ -11,5 +11,6 @@ namespace ajg_technical_interview.Domain.Interfaces
         Task<SanctionedEntity> GetSanctionedEntityByIdAsync(Guid id);
 
         Task<SanctionedEntity> CreateSanctionedEntityAsync(SanctionedEntity sanctionedEntity);
+        Task<bool> SanctionedEntityExistsAsync(SanctionedEntity sanctionedEntity);
     }
 }

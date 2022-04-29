@@ -58,7 +58,11 @@ namespace ajg_technical_interview.Controllers
         {
             try
             {
-                var savedEntity = await _databaseService.CreateSanctionedEntityAsync(_sanctionedEntityMapper.Map(entity));
+                Domain.SanctionedEntity mappedEntity = _sanctionedEntityMapper.Map(entity);
+
+                if (await _databaseService.SanctionedEntityExistsAsync(mappedEntity)) return BadRequest("Entity already exists");
+
+                var savedEntity = await _databaseService.CreateSanctionedEntityAsync(mappedEntity);
 
                 return CreatedAtAction(nameof(GetSanctionedEntityById), new { id = savedEntity.Id });
             }
