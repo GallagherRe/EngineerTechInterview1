@@ -1,4 +1,5 @@
 using ajg_technical_interview.Domain.Interfaces;
+using ajg_technical_interview.Mappers;
 using ajg_technical_interview.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -28,7 +29,9 @@ namespace ajg_technical_interview
                 configuration.RootPath = "ClientApp/dist";
             });
 
-            services.AddSingleton<IDatabaseService, DatabaseService>();
+            services
+                .AddSingleton<IDatabaseService, DatabaseService>()
+                .AddTransient<ISanctionedEntityMapper, SanctionedEntityMapper>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

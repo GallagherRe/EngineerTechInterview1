@@ -5,11 +5,11 @@ VisualStudioVersion = 17.0.32126.317
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ajg-technical-interview", "ajg-technical-interview\ajg-technical-interview.csproj", "{0A27CFE6-DA9F-451E-88EC-F89AA62AE0EC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ajg-technical-interview.Tests", "ajg-technical-interview.Tests\ajg-technical-interview.Tests.csproj", "{5D6E01AA-1789-4BB7-B92E-4553BA56A3C9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ajg-technical-interview.Tests", "ajg-technical-interview.Tests\ajg-technical-interview.Tests.csproj", "{5D6E01AA-1789-4BB7-B92E-4553BA56A3C9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ajg-technical-interview.Domain", "ajg-technical-interview.Domain\ajg-technical-interview.Domain.csproj", "{4494288C-56CB-4196-A0C0-0FF889A2B05C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ajg-technical-interview.Domain", "ajg-technical-interview.Domain\ajg-technical-interview.Domain.csproj", "{4494288C-56CB-4196-A0C0-0FF889A2B05C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ajg-technical-interview.Services", "ajg-technical-interview.Services\ajg-technical-interview.Services.csproj", "{8519B2B5-856D-479F-BEE0-010F012BE57E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ajg-technical-interview.Services", "ajg-technical-interview.Services\ajg-technical-interview.Services.csproj", "{8519B2B5-856D-479F-BEE0-010F012BE57E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

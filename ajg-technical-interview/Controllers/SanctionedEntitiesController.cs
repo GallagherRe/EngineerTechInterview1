@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using ajg_technical_interview.Domain.Interfaces;
+using ajg_technical_interview.Mappers;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ajg_technical_interview.Controllers
@@ -10,10 +12,12 @@ namespace ajg_technical_interview.Controllers
     public class SanctionedEntitiesController : ControllerBase
     {
         private readonly IDatabaseService _databaseService;
+        private readonly ISanctionedEntityMapper _sanctionedEntityMapper;
 
-        public SanctionedEntitiesController(IDatabaseService databaseService)
+        public SanctionedEntitiesController(IDatabaseService databaseService, ISanctionedEntityMapper sanctionedEntityMapper)
         {
             _databaseService = databaseService;
+            _sanctionedEntityMapper = sanctionedEntityMapper;
         }
 
 
@@ -23,7 +27,7 @@ namespace ajg_technical_interview.Controllers
             try
             {
                 var entities = await _databaseService.GetSanctionedEntitiesAsync();
-                return Ok(entities);
+                return Ok(entities.Select(_sanctionedEntityMapper.Map));
             }
             catch (Exception ex)
             {
@@ -32,5 +36,36 @@ namespace ajg_technical_interview.Controllers
             
         }
 
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetSanctionedEntityById(Guid id)
+        {
+            try
+            {
+                var entity = await _databaseService.GetSanctionedEntityByIdAsync(id);
+                
+                if(entity == null) return NotFound();
+
+                return Ok(_sanctionedEntityMapper.Map(entity));
+            }
+            catch (Exception ex)
+            {
+                return Problem(ex.Message);
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateSanctionedEntity(Models.SanctionedEntity entity)
+        {
+            try
+            {
+                var savedEntity = await _databaseService.CreateSanctionedEntityAsync(_sanctionedEntityMapper.Map(entity));
+
+                return CreatedAtAction(nameof(GetSanctionedEntityById), new { id = savedEntity.Id });
+            }
+            catch (Exception ex)
+            {
+                return Problem(ex.Message);
+            }
+        }
     }
 }

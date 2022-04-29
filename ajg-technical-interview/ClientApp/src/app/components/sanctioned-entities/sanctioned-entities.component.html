@@ -1,13 +1,13 @@
 <h1 id="tableLabel">Sanctioned Entities</h1>
 
 <p *ngIf="!entities"><em>Loading...</em></p>
-
 <table class='table table-striped' aria-labelledby="tableLabel" *ngIf="entities">
     <thead>
     <tr>
         <th>Name</th>
         <th>Domicile</th>
         <th>Status</th>
+        <th></th>
     </tr>
     </thead>
     <tbody>
@@ -16,6 +16,10 @@
         <td>{{ entity.domicile }}</td>
         <td *ngIf="entity.accepted" class="text-success">Accepted</td>
         <td *ngIf="!entity.accepted" class="text-danger">Rejected</td>
+        <td><a class="nav-link text-dark" [routerLink]="['/sanctioned-entity/' + entity.id]">View</a></td>
     </tr>
     </tbody>
 </table>
+<div class="text-center">
+    <button type="button" class="btn btn-primary" [routerLink]="['/sanctioned-entity-add']">Add new Sanctioned Entity</button>
+</div>

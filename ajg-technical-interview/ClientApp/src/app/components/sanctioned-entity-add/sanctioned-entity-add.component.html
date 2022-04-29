@@ -1,0 +1,36 @@
+<h1 id="tableLabel">Add Sanctioned Entity</h1>
+
+<form [formGroup]="addSanctionedEntityForm" (ngSubmit)="onSubmit()">
+    <div class="mb-3">
+        <div *ngIf="this.errorMessage != null && this.submitted" class="alert alert-danger">
+            <div>
+                {{this.errorMessage}}
+            </div>
+        </div>
+    </div>
+    <div class="mb-3">
+        <label for="entityname" class="form-label">Name</label>
+        <input type="text" class="form-control" id="name" formControlName="name" required>
+        <div *ngIf="this.addSanctionedEntityForm.controls.name.invalid && (this.addSanctionedEntityForm.controls.name.touched || this.submitted)" class="alert alert-danger">
+            <div *ngIf="this.addSanctionedEntityForm.controls.name.errors.required">
+                Name is required.
+            </div>
+        </div>
+    </div>
+    <div class="mb-3">
+        <label for="entitydomicile" class="form-label">Domicile</label>
+        <input type="text" class="form-control" id="domicile" formControlName="domicile">
+        <div *ngIf="this.addSanctionedEntityForm.controls.domicile.invalid && (this.addSanctionedEntityForm.controls.name.touched || this.submitted)" class="alert alert-danger">
+            <div *ngIf="this.addSanctionedEntityForm.controls.domicile.errors.required">
+                Domicile is required.
+            </div>
+        </div>
+    </div>
+    <div class="custom-control custom-switch">
+        <input type="checkbox" class="custom-control-input" id="customSwitch1" formControlName="accepted">
+        <label class="custom-control-label" for="customSwitch1">Status</label>
+    </div>
+    <div class="mb-3 text-center">
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+</form>
