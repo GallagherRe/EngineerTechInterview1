@@ -4,18 +4,51 @@
 
 <table class='table table-striped' aria-labelledby="tableLabel" *ngIf="entities">
     <thead>
-    <tr>
-        <th>Name</th>
-        <th>Domicile</th>
-        <th>Status</th>
-    </tr>
+        <tr>
+            <th>Name</th>
+            <th>Domicile</th>
+            <th>Status</th>
+        </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let entity of entities">
-        <td>{{ entity.name }}</td>
-        <td>{{ entity.domicile }}</td>
-        <td *ngIf="entity.accepted" class="text-success">Accepted</td>
-        <td *ngIf="!entity.accepted" class="text-danger">Rejected</td>
-    </tr>
+        <tr *ngFor="let entity of entities">
+            <td>{{ entity.name }}</td>
+            <td>{{ entity.domicile }}</td>
+            <td *ngIf="entity.accepted" class="text-success">Accepted</td>
+            <td *ngIf="!entity.accepted" class="text-danger">Rejected</td>
+        </tr>
     </tbody>
 </table>
+
+<button *ngIf="!showFrom" (click)="toggleForm()">Add Entity</button>
+<button *ngIf="showFrom" (click)="toggleForm()">Hide Form</button>
+
+<div *ngIf="showFrom">
+    <form [formGroup]="snForm" (ngSubmit)="onSubmit()">
+
+        <div class="form-group">
+            <label>Name</label>
+            <input type="text" class="form-control" formControlName="name">
+            <div *ngIf="getControl.name.touched && getControl.name.invalid" class="text-danger">
+                <div *ngIf="getControl.name.errors.required">Name is required.</div>                
+            </div>
+            <div *ngIf="nameExists" class="text-danger">Name already exists</div>
+        </div>
+
+        <div class="form-group">
+            <label>Domicile</label>
+            <input type="text" class="form-control" formControlName="domicile">
+            <div *ngIf="getControl.domicile.touched && getControl.domicile.invalid" class="text-danger">
+                <div *ngIf="getControl.domicile.errors.required">Domicile is required.</div>
+            </div>
+            <div *ngIf="domicileExists" class="text-danger">Domicile already exists</div>
+        </div>
+
+        <div class="form-group custom-control custom-switch">
+            <input type="checkbox" class="custom-control-input" id="accepted" formControlName="accepted">
+            <label class="custom-control-label" for="accepted">Status</label>
+        </div>
+
+        <button class="btn btn-danger btn-block" type="submit" [disabled]="!snForm.valid">Submit</button>
+    </form>
+</div>

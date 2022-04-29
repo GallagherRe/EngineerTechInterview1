@@ -1,0 +1,15 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/ajg-technical-interview/bin/Debug/netcoreapp3.1
+/.vs/ajg-technical-interview/config
+/.vs/ajg-technical-interview/DesignTimeBuild
+/.vs/ajg-technical-interview/v17
+/.vs/EngineerTechInterview1/v17
+/ajg-technical-interview/ClientApp/node_modules/.bin
+/ajg-technical-interview/ClientApp/node_modules
+/ajg-technical-interview/obj/Debug/netcoreapp3.1/Razor/Pages/Error.cshtml.g.cs
+/ajg-technical-interview/obj/Debug/netcoreapp3.1
+/ajg-technical-interview/obj
+/.vs/VSWorkspaceState.json
