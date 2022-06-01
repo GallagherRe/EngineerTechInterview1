@@ -33,6 +33,18 @@ namespace ajg_technical_interview.Services
 
         public async Task<SanctionedEntity> CreateSanctionedEntityAsync(SanctionedEntity sanctionedEntity)
         {
+            if (string.IsNullOrWhiteSpace(sanctionedEntity.Name))
+            {
+                throw new ArgumentNullException(nameof(SanctionedEntity.Name));
+            }
+            if (string.IsNullOrWhiteSpace(sanctionedEntity.Domicile))
+            {
+                throw new ArgumentNullException(nameof(SanctionedEntity.Domicile));
+            }
+            if (SanctionedEntities.Any(x => x.Name.Trim() == sanctionedEntity.Name.Trim() && x.Domicile.Trim() == sanctionedEntity.Domicile.Trim()))
+            {
+                throw new Exception("There cannot be more than one entity with the same name and domicile");
+            }
             SanctionedEntities.Add(sanctionedEntity);
             return await Task.FromResult(sanctionedEntity);
         }

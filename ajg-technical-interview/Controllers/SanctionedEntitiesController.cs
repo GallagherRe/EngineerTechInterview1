@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ajg_technical_interview.Models;
 using ajg_technical_interview.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -32,6 +33,21 @@ namespace ajg_technical_interview.Controllers
                 return Problem(ex.Message);
             }
             
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddSanctionedEntitity(SanctionedEntity sanctionedEntity)
+        {
+            try
+            {
+                var created = await _databaseService.CreateSanctionedEntityAsync(sanctionedEntity);
+                return Ok(created);
+            }
+            catch (Exception ex)
+            {
+                return Problem(ex.Message);
+            }
+
         }
 
     }

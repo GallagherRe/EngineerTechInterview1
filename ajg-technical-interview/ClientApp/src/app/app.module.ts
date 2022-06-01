@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 
@@ -10,6 +10,7 @@ import { HomeComponent } from './components/home/home.component';
 import { CounterComponent } from './components/counter/counter.component';
 import { SanctionedEntitiesComponent } from './components/sanctioned-entities/sanctioned-entities.component';
 import { JumbotronCounterComponent } from './components/jumbotron-counter/jumbotron-counter.component';
+import { SanctionedEntityComponent } from './components/sanctioned-entity/sanctioned-entity.component';
 
 @NgModule({
   declarations: [
@@ -18,16 +19,19 @@ import { JumbotronCounterComponent } from './components/jumbotron-counter/jumbot
     HomeComponent,
     CounterComponent,
     SanctionedEntitiesComponent,
+    SanctionedEntityComponent,
     JumbotronCounterComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
-    FormsModule,
+      FormsModule,
+      ReactiveFormsModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'counter', component: CounterComponent },
       { path: 'sanctioned-entities', component: SanctionedEntitiesComponent },
+      { path: 'sanctioned-entities/add', component: SanctionedEntityComponent },
     ])
   ],
   providers: [],
