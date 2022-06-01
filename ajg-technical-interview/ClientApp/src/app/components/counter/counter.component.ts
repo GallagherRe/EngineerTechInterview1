@@ -1,22 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { CounterService } from '../../services/counter.service';
 
 @Component({
     selector: 'app-counter-component',
     templateUrl: './counter.component.html'
 })
-export class CounterComponent implements OnInit {
+export class CounterComponent {
 
     public currentCount = 0;
 
-    ngOnInit(): void {
-        const storedCounter = sessionStorage.getItem('storedCounter');
-        if (storedCounter) {
-            this.currentCount = parseInt(storedCounter);
-        }
+    constructor(private counterservice: CounterService) {
+    }
+
+    getCurrentCounter() {
+        return this.counterservice.getCurrentCounter();
     }
 
     public incrementCounter() {
-        this.currentCount++;
-        sessionStorage.setItem('storedCounter', this.currentCount.toString());
+        this.counterservice.incrementCounter();
     }
 }

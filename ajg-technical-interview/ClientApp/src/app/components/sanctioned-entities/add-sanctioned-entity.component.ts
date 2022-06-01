@@ -12,14 +12,14 @@ export class AddSanctionedEntityComponent {
     postError = false;
     postErrorMessage = '';
 
-    public originalEntity: SanctionedEntity = {
+    public originalSanctionEntity: SanctionedEntity = {
         id: null,
         name: null,
         domicile: null,
         accepted: false
     };
 
-    public sanctionEntity: SanctionedEntity = { ...this.originalEntity };
+    public sanctionEntity: SanctionedEntity = { ...this.originalSanctionEntity };
 
     constructor(private entitiesService: SanctionedEntitiesService, private router: Router) { }
 
