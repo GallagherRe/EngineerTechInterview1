@@ -1,0 +1,57 @@
+<h1 id="tableLabel">Add Sanction Entitity</h1>
+
+<div class="container">  
+   <div class="row">
+       <div class="col-md-6">
+           <form #form="ngForm" (ngSubmit)="onSubmit(form)">
+               <div class="form-group">
+                   <label for="name">Name</label>
+                   <input id="name" name="name" class="form-control" [(ngModel)]="sanctionEntity.name"
+                          required #nameField="ngModel"
+                          [class.field-error]="form.submitted && nameField.invalid">
+                   <div [hidden]="!form.submitted || nameField.valid"
+                        class="alert alert-danger">
+                       Enter a name
+                   </div>
+               </div>
+
+               <div class="form-group">
+                   <label for="domicile">Domicile</label>
+                   <input id="domicile" name="domicile" class="form-control" [(ngModel)]="sanctionEntity.domicile"
+                          required #domicileField="ngModel"
+                          [class.field-error]="form.submitted && domicileField.invalid">
+                   <div [hidden]="!form.submitted || domicileField.valid"
+                        class="alert alert-danger">
+                       Enter a domicile
+                   </div>
+               </div>
+
+               <div class="custom-control custom-switch">
+                   <input #acceptSwitch
+                          id="acceptSwitch"
+                          type="checkbox"
+                          class="custom-control-input"
+                          [checked]="sanctionEntity.accepted"
+                          (change)="onAcceptSwitch(acceptSwitch.checked)" />
+                   <label class="custom-control-label" for="acceptSwitch">Accepted</label>
+               </div>
+
+               <div [hidden]="!postError"
+                    class="alert alert-danger mt-3">
+                   {{ postErrorMessage }}
+               </div>
+
+               <div [hidden]="!successMessage"
+                    class="alert alert-success mt-3">
+                   {{ successMessage }}
+               </div>
+
+               <button type="submit" class="btn btn-primary mt-5 mr-2" [disabled]="form.invalid">Create</button>
+               <a class="btn btn-secondary mt-5" [routerLink]="['/sanctioned-entities']">Back</a>
+           </form>
+       </div>
+   </div>
+   
+</div>
+
+

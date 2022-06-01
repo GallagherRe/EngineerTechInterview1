@@ -12,5 +12,7 @@ namespace ajg_technical_interview.Services
         Task<SanctionedEntity> GetSanctionedEntityByIdAsync(Guid id);
 
         Task<SanctionedEntity> CreateSanctionedEntityAsync(SanctionedEntity sanctionedEntity);
+
+        Task<SanctionedEntity> GetSanctionedEntityByNameAndDomicileAsync(SanctionedEntity sanctionedEntity);
     }
 }
