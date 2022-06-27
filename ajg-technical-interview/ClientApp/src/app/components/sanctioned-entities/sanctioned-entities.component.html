@@ -11,11 +11,23 @@
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let entity of entities">
+    <tr *ngFor="let entity of entities; let i = index">
         <td>{{ entity.name }}</td>
         <td>{{ entity.domicile }}</td>
-        <td *ngIf="entity.accepted" class="text-success">Accepted</td>
-        <td *ngIf="!entity.accepted" class="text-danger">Rejected</td>
+        <td>
+            <div class="custom-control custom-switch">
+                <input *ngIf="entity.accepted" type="checkbox" class="custom-control-input" attr.id="customSwitch{{ i }}" checked>
+                <label *ngIf="entity.accepted" class="custom-control-label text-success" for="customSwitch {{ i }}">Accepted</label>
+                <input *ngIf="!entity.accepted" type="checkbox" class="custom-control-input" attr.id="customSwitch{{ i }}">
+                <label *ngIf="!entity.accepted" class="custom-control-label text-danger" for="customSwitch {{ i }}">Rejected</label>
+              </div>
+        </td>
+    </tr>
+
+    <tr>
+        <td colspan="3">
+            <a [routerLink]="['/add-sanctioned-entity']">Add New Sanctioned Entity</a>
+        </td>
     </tr>
     </tbody>
 </table>

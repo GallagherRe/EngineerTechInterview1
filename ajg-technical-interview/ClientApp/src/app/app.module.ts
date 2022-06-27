@@ -10,6 +10,9 @@ import { HomeComponent } from './components/home/home.component';
 import { CounterComponent } from './components/counter/counter.component';
 import { SanctionedEntitiesComponent } from './components/sanctioned-entities/sanctioned-entities.component';
 import { JumbotronCounterComponent } from './components/jumbotron-counter/jumbotron-counter.component';
+import { CounterService } from './services/counter.service';
+import { ReactiveFormsModule } from '@angular/forms';
+import { AddSanctionedEntityComponent } from './components/sanctioned-entities/add-sanctioned-entity/add-sanctioned-entity.component';
 
 @NgModule({
   declarations: [
@@ -18,19 +21,22 @@ import { JumbotronCounterComponent } from './components/jumbotron-counter/jumbot
     HomeComponent,
     CounterComponent,
     SanctionedEntitiesComponent,
-    JumbotronCounterComponent
+    JumbotronCounterComponent,
+    AddSanctionedEntityComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'counter', component: CounterComponent },
       { path: 'sanctioned-entities', component: SanctionedEntitiesComponent },
+      { path: 'add-sanctioned-entity', component: AddSanctionedEntityComponent }
     ])
   ],
-  providers: [],
+  providers: [CounterService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

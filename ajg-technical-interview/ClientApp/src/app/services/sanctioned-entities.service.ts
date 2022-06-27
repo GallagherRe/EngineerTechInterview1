@@ -19,4 +19,13 @@ export class SanctionedEntitiesService {
     const url = this.apiUrl + this.path;
     return this.http.get<SanctionedEntity[]>(url);
   }
+
+  public async getSanctionedEntitiesAsync(): Promise<SanctionedEntity[]> {
+    return this.getSanctionedEntities().toPromise();
+  }
+
+  public addSanctionedEntity(sanctionedEntity: SanctionedEntity): Observable<SanctionedEntity> {
+    const url = this.apiUrl + this.path;
+    return this.http.post<SanctionedEntity>(url, sanctionedEntity);
+  }
 }

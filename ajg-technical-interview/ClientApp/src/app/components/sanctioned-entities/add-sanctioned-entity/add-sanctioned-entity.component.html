@@ -1,0 +1,30 @@
+<table class="table table-striped" aria-labelledby="tableLabel">
+  <tbody>
+    <tr>
+      <td>Name</td>
+      <td>
+        <input id="name" type="text" [formControl]="entityName" />
+        <div *ngIf="entityName.errors?.required">Name is required.</div>
+      </td>
+    </tr>
+    <tr>
+      <td>Domicile</td>
+      <td>
+        <input id="domicile" type="text" [formControl]="entityDomicile" />
+        <div *ngIf="entityDomicile.errors?.required">Domicile is required.</div>
+      </td>
+    </tr>
+    <tr>
+      <td>Status</td>
+      <td><input id="name" type="checkbox" [formControl]="entityStatus" /></td>
+    </tr>
+    <tr>
+      <td colspan="2">
+        <button type="button" (click)="addSanctionedEntity()">
+          Add Sanctioned Entity
+        </button>
+        <div *ngIf="hasErrors">{{ errorMessage }}</div>
+      </td>
+    </tr>
+  </tbody>
+</table>
