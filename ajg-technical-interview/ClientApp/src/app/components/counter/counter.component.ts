@@ -15,7 +15,6 @@ export class CounterComponent implements OnInit{
   }
 
   public incrementCounter() {
-    //this.currentCount++;
     this.currentCount = this._counterService.incrementCount();
   }
 }
