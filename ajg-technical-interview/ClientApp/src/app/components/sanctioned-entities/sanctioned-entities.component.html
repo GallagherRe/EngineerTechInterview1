@@ -4,18 +4,48 @@
 
 <table class='table table-striped' aria-labelledby="tableLabel" *ngIf="entities">
     <thead>
-    <tr>
-        <th>Name</th>
-        <th>Domicile</th>
-        <th>Status</th>
-    </tr>
+        <tr>
+            <th>Name</th>
+            <th>Domicile</th>
+            <th>Status</th>
+        </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let entity of entities">
-        <td>{{ entity.name }}</td>
-        <td>{{ entity.domicile }}</td>
-        <td *ngIf="entity.accepted" class="text-success">Accepted</td>
-        <td *ngIf="!entity.accepted" class="text-danger">Rejected</td>
-    </tr>
+        <tr *ngFor="let entity of entities">
+            <td>{{ entity.name }}</td>
+            <td>{{ entity.domicile }}</td>
+            <td *ngIf="entity.accepted" class="text-success">Accepted</td>
+            <td *ngIf="!entity.accepted" class="text-danger">Rejected</td>
+        </tr>
     </tbody>
 </table>
+
+<!-- This should be it's own component, and use a service maybe injected at the scope of the parent component with an observable to trigger the list to retrieve data again
+onde added -->
+<h1>Add Sanctioned Entities</h1>
+<div class="alert alert-danger" role="alert" *ngIf="existingEntity">
+    A entity already exists with the values inserted in the form. Please change the values and try again.
+</div>
+<form class="needs-validation" [formGroup]="sanctionedEntitiesForm" (ngSubmit)="onSubmit()">
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label for="entityName">Name</label>
+            <input type="text" class="form-control" id="entityName" placeholder="Name" formControlName="entityName">
+        </div>
+        <div class="form-group col-md-6">
+            <label for="entityDomicile">Domicile</label>
+            <input type="text" class="form-control" id="entityDomicile" placeholder="Domicile"
+                formControlName="entityDomicile">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="form-check pl-0">
+            <div class="custom-control custom-switch">
+                <input type="checkbox" class="custom-control-input" id="entityStatus" formControlName="entityAccepted">
+                <label class="custom-control-label" for="entityStatus">{{sanctionedEntitiesForm.value.entityAccepted ? "Accepted" : "Rejected"}}</label>
+            </div>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary" [disabled]="!sanctionedEntitiesForm.valid">Add</button>
+</form>

@@ -28,7 +28,7 @@ namespace ajg_technical_interview.Services
 
         public async Task<SanctionedEntity> GetSanctionedEntityByIdAsync(Guid id)
         {
-            return await Task.FromResult(SanctionedEntities.First(e => e.Id.Equals(id)));
+            return await Task.FromResult(SanctionedEntities.FirstOrDefault(e => e.Id.Equals(id)));
         }
 
         public async Task<SanctionedEntity> CreateSanctionedEntityAsync(SanctionedEntity sanctionedEntity)
