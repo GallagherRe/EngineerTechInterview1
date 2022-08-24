@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using ajg_technical_interview.Models;
 using ajg_technical_interview.Services;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Threading.Tasks;
 
 namespace ajg_technical_interview.Controllers
 {
@@ -32,6 +31,23 @@ namespace ajg_technical_interview.Controllers
                 return Problem(ex.Message);
             }
             
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateSanctionedEntity([FromBody] SanctionedEntity sanctionedEntity)
+        {
+            try
+            {
+                if (!ModelState.IsValid) { return BadRequest(ModelState); }
+
+                var entity = await _databaseService.CreateSanctionedEntityAsync(sanctionedEntity);
+                return Ok(entity);
+            }
+            catch (Exception ex)
+            {
+                return Problem(ex.Message);
+            }
+
         }
 
     }

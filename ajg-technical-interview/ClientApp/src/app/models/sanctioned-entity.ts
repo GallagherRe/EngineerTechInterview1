@@ -1,6 +1,8 @@
 export class SanctionedEntity {
-  id: string;
-  name: string;
-  domicile: string;
-  accepted: boolean;
+  constructor(
+    public id: string,
+    public name: string,
+    public domicile: string,
+    public accepted: boolean
+    ){}
 }
