@@ -7,26 +7,23 @@ import { SanctionedEntitiesService } from 'src/app/services/sanctioned-entities.
   templateUrl: './add-sanctioned-entity.component.html',
   styleUrls: ['./add-sanctioned-entity.component.css']
 })
-export class AddSanctionedEntityComponent implements OnInit {
+export class AddSanctionedEntityComponent {
 
-  entityForm: FormGroup;
+  entityForm = this.fb.group({
+    name: ['',[Validators.required, Validators.minLength(3)] ],
+    domicile: ['',[Validators.required, Validators.minLength(3)] ],
+    isSanctioned: [false, Validators.required]
+
+  });
 
 
   constructor(
     private fb: FormBuilder,
     private service: SanctionedEntitiesService
     ) {
-      this.entityForm = this.fb.group({
-        name: ['',[Validators.required, Validators.minLength(3)] ],
-        domicile: ['',[Validators.required, Validators.minLength(3)] ],
-        isSanctioned: [false, Validators.required]
-      });
-
 
     }
 
-  ngOnInit() {
-  }
 
   onSubmit() {
     if (this.entityForm.valid) {

@@ -9,7 +9,7 @@ import { JumbotronCounterComponent } from './components/jumbotron-counter/jumbot
 import { NavMenuComponent } from './components/nav-menu/nav-menu.component';
 import { SanctionedEntitiesComponent } from './components/sanctioned-entities/sanctioned-entities.component';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { environment } from '@env/environment';
 import { AddSanctionedEntityComponent } from './components/add-sanctioned-entity/add-sanctioned-entity.component';
 
@@ -27,6 +27,7 @@ import { AddSanctionedEntityComponent } from './components/add-sanctioned-entity
     BrowserModule,
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule,
     AppRoutingModule
   ],
   providers: [
