@@ -8,6 +8,8 @@ import { HomeComponent } from './components/home/home.component';
 import { JumbotronCounterComponent } from './components/jumbotron-counter/jumbotron-counter.component';
 import { NavMenuComponent } from './components/nav-menu/nav-menu.component';
 import { SanctionedEntitiesComponent } from './components/sanctioned-entities/sanctioned-entities.component';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -20,6 +22,8 @@ import { SanctionedEntitiesComponent } from './components/sanctioned-entities/sa
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
+    FormsModule,
     AppRoutingModule
   ],
   providers: [],
