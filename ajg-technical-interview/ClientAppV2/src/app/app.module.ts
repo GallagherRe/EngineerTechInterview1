@@ -10,6 +10,7 @@ import { NavMenuComponent } from './components/nav-menu/nav-menu.component';
 import { SanctionedEntitiesComponent } from './components/sanctioned-entities/sanctioned-entities.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { environment } from '@env/environment';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,9 @@ import { FormsModule } from '@angular/forms';
     FormsModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [
+    { provide: 'BASE_URL', useValue: environment.apiUrl }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
