@@ -8,6 +8,13 @@ describe('CounterComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
+      declarations: [ CounterComponent ]
+    })
+    .compileComponents();
+  });
+
+  beforeEach(() => {
+    TestBed.configureTestingModule({
       declarations: [CounterComponent]
     });
     fixture = TestBed.createComponent(CounterComponent);
@@ -15,7 +22,18 @@ describe('CounterComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  it('should display a title', () => {
+    const titleText = fixture.nativeElement.querySelector('h1').textContent;
+    expect(titleText).equals('Counter');
+  });
+
+  it('should start with count 0, then increments by 1 when clicked', () => {
+    const countElement = fixture.nativeElement.querySelector('strong');
+    expect(countElement.textContent).equal('0');
+
+    const incrementButton = fixture.nativeElement.querySelector('button');
+    incrementButton.click();
+    fixture.detectChanges();
+    expect(countElement.textContent).equals('1');
   });
 });

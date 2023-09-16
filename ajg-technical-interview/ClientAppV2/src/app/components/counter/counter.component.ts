@@ -6,5 +6,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./counter.component.sass']
 })
 export class CounterComponent {
+  public currentCount = 0;
 
+  public incrementCounter() {
+    this.currentCount++;
+  }
 }
