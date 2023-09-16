@@ -11,6 +11,7 @@ import { SanctionedEntitiesComponent } from './components/sanctioned-entities/sa
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { environment } from '@env/environment';
+import { AddSanctionedEntityComponent } from './components/add-sanctioned-entity/add-sanctioned-entity.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { environment } from '@env/environment';
     HomeComponent,
     JumbotronCounterComponent,
     NavMenuComponent,
-    SanctionedEntitiesComponent
+    SanctionedEntitiesComponent,
+    AddSanctionedEntityComponent
   ],
   imports: [
     BrowserModule,
