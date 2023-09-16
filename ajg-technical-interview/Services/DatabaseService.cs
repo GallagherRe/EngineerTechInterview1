@@ -36,5 +36,11 @@ namespace ajg_technical_interview.Services
             SanctionedEntities.Add(sanctionedEntity);
             return await Task.FromResult(sanctionedEntity);
         }
+
+        public async Task<SanctionedEntity> GetSanctionedEntityByNameAndDomicileAsync(string name, string domicile)
+        {
+            SanctionedEntity result = SanctionedEntities.FirstOrDefault(e => e.Name.Equals(name) || e.Domicile.Equals(domicile));
+            return await Task.FromResult(result);
+        }
     }
 }

@@ -17,7 +17,8 @@ namespace TestBackendAPI
 
             IDatabaseService databaseService = new DatabaseService();
             var controller = new SanctionedEntitiesController(databaseService);
-            var newEntity = new SanctionedEntity { /* initialize with test data */ };
+            var newEntity = new SanctionedEntity { Name = "Test", Domicile = "Test" , Accepted = false
+            };
 
             // Act
             var result = await controller.AddSanctionedEntity(newEntity);
@@ -25,5 +26,7 @@ namespace TestBackendAPI
             // Assert
             Assert.IsType<CreatedAtActionResult>(result);
         }
+
+       
     }
 }
