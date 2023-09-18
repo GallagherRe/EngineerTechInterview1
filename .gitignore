@@ -1,0 +1,7 @@
+.vs/ajg-technical-interview/v16/.suo
+ajg-technical-interview/bin/*
+ajg-technical-interview/obj/*
+.idea/*
+.vs/*
+TestBackendAPI/bin/*
+TestBackendAPI/obj/*
