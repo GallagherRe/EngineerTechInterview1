@@ -24,11 +24,13 @@ namespace ajg_technical_interview
         {
             services.AddCors(options =>
             {
-                options.AddPolicy(name: MyAllowSpecificOrigins,
+                options.AddDefaultPolicy(
                                   policy =>
                                   {
                                       policy.WithOrigins("http://localhost:4200",
-                                                          "http://localhost:5000");
+                                                          "http://localhost:5000")
+                                      .AllowAnyHeader()
+                                      .AllowAnyMethod();
                                   });
             });
 
@@ -59,7 +61,7 @@ namespace ajg_technical_interview
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-            app.UseCors(MyAllowSpecificOrigins);
+            app.UseCors();
 
             if (!env.IsDevelopment())
             {

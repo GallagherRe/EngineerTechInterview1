@@ -77,6 +77,7 @@ namespace ajg_technical_interview.Controllers
             catch (Exception ex)
             {
                 // Handle any unexpected exceptions
+                Console.WriteLine($"Error {ex.Message}");
                 return StatusCode(500, $"An unexpected error occurred: {ex.Message}");
             }
            
