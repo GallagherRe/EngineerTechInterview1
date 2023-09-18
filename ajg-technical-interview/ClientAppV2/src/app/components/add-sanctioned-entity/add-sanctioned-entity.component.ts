@@ -8,8 +8,7 @@ import { SanctionedEntitiesService } from 'src/app/services/sanctioned-entities.
   styleUrls: ['./add-sanctioned-entity.component.css']
 })
 export class AddSanctionedEntityComponent {
-
-  entityForm = this.fb.group({
+  entityForm: FormGroup = this.fb.group({
     name: ['',[Validators.required, Validators.minLength(3)] ],
     domicile: ['',[Validators.required, Validators.minLength(3)] ],
     isSanctioned: [false, Validators.required]
@@ -29,10 +28,23 @@ export class AddSanctionedEntityComponent {
     if (this.entityForm.valid) {
       // Create a new entity based on the form values
       const newEntity = {
+        id: '',
         name: this.entityForm.value.name,
         domicile: this.entityForm.value.domicile,
         accepted: this.entityForm.value.isSanctioned
       };
+      this.service.addSanctionedEntity(newEntity).subscribe(
+        (response) => {
+          console.log(response);
+          this.entityForm.reset();
+        },
+        (error) => {
+          console.log(error);
+        }
+
+      );
+
+
 
       // Call your service to add the new entity
       console.log(newEntity);
