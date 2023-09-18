@@ -9,7 +9,9 @@ import { JumbotronCounterComponent } from './components/jumbotron-counter/jumbot
 import { NavMenuComponent } from './components/nav-menu/nav-menu.component';
 import { SanctionedEntitiesComponent } from './components/sanctioned-entities/sanctioned-entities.component';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { environment } from '@env/environment';
+import { AddSanctionedEntityComponent } from './components/add-sanctioned-entity/add-sanctioned-entity.component';
 
 @NgModule({
   declarations: [
@@ -18,15 +20,19 @@ import { FormsModule } from '@angular/forms';
     HomeComponent,
     JumbotronCounterComponent,
     NavMenuComponent,
-    SanctionedEntitiesComponent
+    SanctionedEntitiesComponent,
+    AddSanctionedEntityComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [
+    { provide: 'BASE_URL', useValue: environment.apiUrl }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
