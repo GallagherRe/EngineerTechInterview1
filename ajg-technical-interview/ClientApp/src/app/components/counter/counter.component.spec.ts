@@ -48,6 +48,6 @@ describe("CounterComponent", () => {
     parentComponent.incrementCounter();
 
     expect(dispatchSpy).toHaveBeenCalledTimes(1);
-    expect(dispatchSpy).toHaveBeenCalledWith(CounterActions.incrementCounter);
+    expect(dispatchSpy).toHaveBeenCalledWith(CounterActions.incrementCounter());
   });
 });
