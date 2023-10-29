@@ -2,20 +2,30 @@
 
 <p *ngIf="!entities"><em>Loading...</em></p>
 
-<table class='table table-striped' aria-labelledby="tableLabel" *ngIf="entities">
-    <thead>
+<div *ngIf="entities" class="mt-3 mb-2" style="float: right">
+  <a class="btn btn-primary" [routerLink]="['/add-sanctioned-entity']"
+    >Add Sanction Entity</a
+  >
+</div>
+
+<table
+  class="table table-striped"
+  aria-labelledby="tableLabel"
+  *ngIf="entities"
+>
+  <thead>
     <tr>
-        <th>Name</th>
-        <th>Domicile</th>
-        <th>Status</th>
+      <th>Name</th>
+      <th>Domicile</th>
+      <th>Status</th>
     </tr>
-    </thead>
-    <tbody>
+  </thead>
+  <tbody>
     <tr *ngFor="let entity of entities">
-        <td>{{ entity.name }}</td>
-        <td>{{ entity.domicile }}</td>
-        <td *ngIf="entity.accepted" class="text-success">Accepted</td>
-        <td *ngIf="!entity.accepted" class="text-danger">Rejected</td>
+      <td>{{ entity.name }}</td>
+      <td>{{ entity.domicile }}</td>
+      <td *ngIf="entity.accepted" class="text-success">Accepted</td>
+      <td *ngIf="!entity.accepted" class="text-danger">Rejected</td>
     </tr>
-    </tbody>
+  </tbody>
 </table>
