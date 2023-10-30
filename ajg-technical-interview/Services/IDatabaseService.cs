@@ -8,9 +8,8 @@ namespace ajg_technical_interview.Services
     public interface IDatabaseService
     {
         Task<IList<SanctionedEntity>> GetSanctionedEntitiesAsync();
-
         Task<SanctionedEntity> GetSanctionedEntityByIdAsync(Guid id);
-
         Task<SanctionedEntity> CreateSanctionedEntityAsync(SanctionedEntity sanctionedEntity);
+        Task<SanctionedEntity> GetSanctionedEntityByNameAndDomicileAsync(string name, string domicile);
     }
 }

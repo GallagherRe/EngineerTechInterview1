@@ -1,13 +1,16 @@
-import { Component } from '@angular/core';
+import { Component } from "@angular/core";
+import { State, Store } from "@ngrx/store";
+import * as CounterActions from "./+state/counter.actions";
+import { CounterState } from "./+state/counter.reducer";
 
 @Component({
-  selector: 'app-counter-component',
-  templateUrl: './counter.component.html'
+  selector: "app-counter-component",
+  templateUrl: "./counter.component.html",
 })
 export class CounterComponent {
-  public currentCount = 0;
+  constructor(private counterStore$: Store<State<CounterState>>) {}
 
   public incrementCounter() {
-    this.currentCount++;
+    this.counterStore$.dispatch(CounterActions.incrementCounter());
   }
 }

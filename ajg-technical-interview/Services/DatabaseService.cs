@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ajg_technical_interview.Exceptions;
 using ajg_technical_interview.Models;
 
 namespace ajg_technical_interview.Services
@@ -31,8 +32,19 @@ namespace ajg_technical_interview.Services
             return await Task.FromResult(SanctionedEntities.First(e => e.Id.Equals(id)));
         }
 
+        public async Task<SanctionedEntity> GetSanctionedEntityByNameAndDomicileAsync(string name, string domicile)
+        {
+            return await Task.FromResult(SanctionedEntities.FirstOrDefault(se =>
+                se.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase) &&
+                se.Domicile.Equals(domicile, StringComparison.InvariantCultureIgnoreCase)));
+        }
+
         public async Task<SanctionedEntity> CreateSanctionedEntityAsync(SanctionedEntity sanctionedEntity)
         {
+            if (await GetSanctionedEntityByNameAndDomicileAsync(sanctionedEntity.Name, sanctionedEntity.Domicile) !=
+                null)
+                throw new DuplicatedSanctionedEntityException();
+
             SanctionedEntities.Add(sanctionedEntity);
             return await Task.FromResult(sanctionedEntity);
         }

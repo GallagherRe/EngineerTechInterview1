@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
+using ajg_technical_interview.Exceptions;
+using ajg_technical_interview.Models;
 using ajg_technical_interview.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -33,6 +33,28 @@ namespace ajg_technical_interview.Controllers
             }
             
         }
+        
+        [HttpPost]
+        public async Task<IActionResult> PostSanctionedEntity([FromBody] SanctionedEntity sanctionedEntity)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
 
+                var entity = await _databaseService.CreateSanctionedEntityAsync(sanctionedEntity);
+                return CreatedAtAction(nameof(PostSanctionedEntity), entity);
+            }
+            catch (DuplicatedSanctionedEntityException ex)
+            {
+                return Conflict(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return Problem(ex.Message);
+            }
+        }
     }
 }
