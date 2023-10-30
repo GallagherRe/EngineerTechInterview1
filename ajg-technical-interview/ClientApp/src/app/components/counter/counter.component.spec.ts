@@ -33,4 +33,24 @@ describe('CounterComponent', () => {
     fixture.detectChanges();
     expect(countElement.textContent).toEqual('1');
   }));
+
+    it('should persist count when switching between the tabs', async(() => {
+        const countElement = fixture.nativeElement.querySelector('strong');
+        expect(countElement.textContent).toEqual('0');
+
+        const incrementButton = fixture.nativeElement.querySelector('button');
+        //Increement counter to 2 by clicking button twice
+        incrementButton.click();
+        incrementButton.click();
+
+        //TODO: Click tabs
+        const homeTab = fixture.nativeElement.getElementById('tabHome');
+        homeTab.click();
+        const counterTab = fixture.nativeElement.getElementById('tabCounter');
+        counterTab.click();
+
+        fixture.detectChanges();
+        expect(countElement.textContent).toEqual('2');
+    }));
+
 });
