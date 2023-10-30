@@ -69,9 +69,9 @@
     />
     <label
       class="form-label"
-      [ngClass]="status ? 'accepted' : 'rejected'"
+      [ngClass]="status.value ? 'accepted' : 'rejected'"
       for="flexSwitchCheckDefault"
-      >{{ status | status }}</label
+      >{{ status.value | status }}</label
     >
   </div>
   <div class="col-md-5">

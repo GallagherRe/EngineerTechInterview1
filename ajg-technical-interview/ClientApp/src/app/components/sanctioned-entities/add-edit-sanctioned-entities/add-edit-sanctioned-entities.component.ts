@@ -1,10 +1,10 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnDestroy, OnInit } from "@angular/core";
 import { FormBuilder, FormControl, Validators } from "@angular/forms";
 import { SanctionedEntity } from "./../../../models/sanctioned-entity";
 import { SanctionedEntitiesService } from "./../../../services/sanctioned-entities.service";
 import { take } from "rxjs/operators";
 import { Router } from "@angular/router";
-import { EMPTY } from "rxjs";
+import { EMPTY, Subscription } from "rxjs";
 import { ApiCustomError } from "./../../../models/api-custom-error";
 
 @Component({
@@ -12,9 +12,10 @@ import { ApiCustomError } from "./../../../models/api-custom-error";
   templateUrl: "./add-edit-sanctioned-entities.component.html",
   styleUrls: ["./add-edit-sanctioned-entities.component.css"],
 })
-export class AddEditSanctionedEntitiesComponent implements OnInit {
+export class AddEditSanctionedEntitiesComponent implements OnInit, OnDestroy {
   sanctionedEntity: SanctionedEntity;
   errorMessage: ApiCustomError = null;
+  subscription: Subscription;
 
   sanctionedEntityFormGroup = this.fb.group({
     name: new FormControl("", Validators.required),
@@ -28,7 +29,9 @@ export class AddEditSanctionedEntitiesComponent implements OnInit {
     private router: Router
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.subscription = new Subscription();
+  }
 
   get name() {
     return this.sanctionedEntityFormGroup.get("name")!;
@@ -45,17 +48,19 @@ export class AddEditSanctionedEntitiesComponent implements OnInit {
       this.sanctionedEntity = this.sanctionedEntityFormGroup
         .value as SanctionedEntity;
 
-      this.sanctionedEntitiesService
-        .createSanctionedEntity(this.sanctionedEntity)
-        .pipe(take(1))
-        .subscribe({
-          next: () => this.router.navigate(["sanctioned-entities"]),
-          error: (err: ApiCustomError) => {
-            this.errorMessage = err;
-            this.hideAlert();
-          },
-          complete: () => EMPTY,
-        });
+      this.subscription.add(
+        this.sanctionedEntitiesService
+          .createSanctionedEntity(this.sanctionedEntity)
+          .pipe(take(1))
+          .subscribe({
+            next: () => this.router.navigate(["sanctioned-entities"]),
+            error: (err: ApiCustomError) => {
+              this.errorMessage = err;
+              this.hideAlert();
+            },
+            complete: () => EMPTY,
+          })
+      );
     } else {
       this.name.markAsDirty();
       this.domicile.markAsDirty();
@@ -65,6 +70,10 @@ export class AddEditSanctionedEntitiesComponent implements OnInit {
   hideAlert() {
     setTimeout(() => {
       this.errorMessage = null;
-    }, 3000);
+    }, 3500);
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 }
