@@ -1,21 +1,116 @@
-<h1 id="tableLabel">Sanctioned Entities</h1>
-
 <p *ngIf="!entities"><em>Loading...</em></p>
+<p-toast></p-toast>
 
-<table class='table table-striped' aria-labelledby="tableLabel" *ngIf="entities">
-    <thead>
-    <tr>
-        <th>Name</th>
-        <th>Domicile</th>
-        <th>Status</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor="let entity of entities">
-        <td>{{ entity.name }}</td>
-        <td>{{ entity.domicile }}</td>
-        <td *ngIf="entity.accepted" class="text-success">Accepted</td>
-        <td *ngIf="!entity.accepted" class="text-danger">Rejected</td>
-    </tr>
-    </tbody>
-</table>
+<div class="card">
+    <h5>Sanctioned Entities</h5>
+    <div class="card">
+        <p-toolbar styleClass="mb-4 gap-2">
+            <ng-template pTemplate="left">
+                <button pButton pRipple id="btnAddEntity" label="Add Entity" icon="pi pi-plus" class="p-button-success mr-2" (click)="openNew()"></button>
+            </ng-template>
+        </p-toolbar>
+
+        <p-table *ngIf="entities" [value]="entities" dataKey="entity" [rows]="10" [paginator]="true" [rowHover]="true"
+                 currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th id="th_entity_name" style="width:25%">Name </th>
+                    <th id="th_entity_age" style="width:25%">Domicile</th>
+                    <th id="th_entity_gender" style="width:25%">Status</th>
+                    <th style="width:25%"></th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-entity let-ri="rowIndex">
+                <tr>
+                    <td>
+                        <p-cellEditor>
+                            <ng-template pTemplate="output">
+                                {{entity.name}}
+                            </ng-template>
+                        </p-cellEditor>
+                    </td>
+                    <td>
+                        <p-cellEditor>
+                            <ng-template pTemplate="output">
+                                {{entity.domicile}}
+                            </ng-template>
+                        </p-cellEditor>
+                    </td>
+                    <td>
+                        <p-cellEditor>
+                            <ng-template pTemplate="output">
+                                <span *ngIf="entity.accepted" class="text-success">Accepted</span>
+                                <span *ngIf="!entity.accepted" class="text-danger">Rejected</span>
+                            </ng-template>
+                        </p-cellEditor>
+                    </td>
+                    <td>
+                        <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success p-mr-2" (click)="onEntityUpdate(entity)"></button>
+                        <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="onEntityDelete(entity)"></button>
+                    </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="summary">
+                <div class="p-d-flex p-ai-center p-jc-between">
+                    In total there are {{entities ? entities.length : 0 }} entities.
+                </div>
+            </ng-template>
+        </p-table>
+    </div>
+</div>
+
+<p-dialog [(visible)]="entityDialog" [style]="{width: '550px'}" header="Sanctioned Entity Details" [modal]="true" styleClass="p-fluid">
+    <ng-template pTemplate="content">
+        <form [formGroup]="entityForm" class="form-horizontal">
+            <div class="p-field">
+                <input type="text" pInputText id="id" formControlName="id" hidden />
+            </div>
+
+            <div class="p-field">
+                <label for="name">Name</label>
+                <input type="text" pInputText id="name" formControlName="name" required />
+                <div *ngIf="entityForm.get('name')?.invalid && (entityForm.get('name')?.dirty || entityForm.get('name')?.touched)" class="alert alert-danger">
+                    <div *ngIf="entityForm.get('name')?.errors?.['required']">
+                        <small class="p-error">Name is required.</small>
+                    </div>
+                    <div *ngIf="entityForm.get('name')?.errors?.['minlength']">
+                        <small class="p-error">Name must have a min 2 letters.</small>
+                    </div>
+                </div>
+            </div>
+
+            <div class="p-field">
+                <label for="domicile">Domicile</label>
+                <input type="text" pInputText id="domicile" formControlName="domicile" required />
+                <div *ngIf="entityForm.get('domicile')?.invalid && (entityForm.get('domicile')?.dirty || entityForm.get('domicile')?.touched)" class="alert alert-danger">
+                    <div *ngIf="entityForm.get('domicile')?.errors?.['required']">
+                        <small class="p-error">domicile is required.</small>
+                    </div>
+                    <div *ngIf="entityForm.get('domicile')?.errors?.['minlength']">
+                        <small class="p-error">domicile must have a min 2 letters.</small>
+                    </div>
+                    <div *ngIf="entityForm?.errors?.['entityExists']">
+                        <small class="p-error">{{entityForm?.errors.itemFound.message}}hh</small>
+                    </div>
+
+                </div>
+               
+            </div>
+
+            <div class="p-field">
+                <label for="status">Status </label>
+                <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" role="switch" id="status" formControlName="accepted" [checked]="entityForm.get('accepted')">
+                    <label class="form-check-label" for="status">Accepted</label>
+                </div>
+            </div>
+        </form>
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="Cancel" id="btnCancelEntity" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+        <button pButton pRipple label="Save" id="btnSaveEntity" icon="pi pi-check" class="p-button-text" (click)="saveEntity()" [disabled]="entityForm.invalid"></button>
+    </ng-template>
+</p-dialog>
+
+<p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>

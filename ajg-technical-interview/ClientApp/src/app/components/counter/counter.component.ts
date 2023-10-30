@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { LocalStorageService } from '../../services/local-storage.service';
 
 @Component({
   selector: 'app-counter-component',
@@ -7,7 +8,16 @@ import { Component } from '@angular/core';
 export class CounterComponent {
   public currentCount = 0;
 
-  public incrementCounter() {
-    this.currentCount++;
-  }
+    constructor(private localStorageService: LocalStorageService) {
+    }
+
+    public incrementCounter() {
+        var currentCount = this.getCurrentCount();
+        currentCount++;
+        this.localStorageService.setItem('counter', currentCount.toString());
+    }
+
+    public getCurrentCount(): number {
+        return +this.localStorageService.getItem('counter');
+    }
 }
