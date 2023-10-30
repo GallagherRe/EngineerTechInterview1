@@ -37,7 +37,7 @@ namespace ajg_technical_interview.Controllers
 
         [HttpPost]
         [Route("add")]
-        public async Task<ActionResult> Add([FromBody] SanctionedEntity entity)
+        public async Task<ActionResult> AddSanctionedEntity([FromBody] SanctionedEntity entity)
         {
             try
             {
