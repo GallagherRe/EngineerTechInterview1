@@ -14,4 +14,6 @@ export class SanctionedEntitiesComponent {
       this.entities = entities;
     });
   }
+
+  
 }

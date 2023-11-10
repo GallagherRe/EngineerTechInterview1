@@ -1,0 +1,27 @@
+<button
+    type="button"
+    (click)="toggleAddEntityForm()"
+    *ngIf="!displayAddEntityForm"
+  >+ Add Entity</button>
+
+<ng-container *ngIf="displayAddEntityForm">
+  <form [formGroup]="entityForm">
+    <div class="container" class="d-flex" style="gap: 3em;">
+      <div>
+        <label for="name">Name:</label>
+        <input type="text" id="name" formControlName="name">
+      </div>
+      <div>
+        <label for="domicile">Domicile:</label>
+        <input type="text" id="domicile" formControlName="domicile">
+      </div>
+      <div class="custom-control custom-switch">
+        <input type="checkbox" id="accepted" formControlName="accepted" class="custom-control-input">
+        <label for="accepted" class="custom-control-label">Accepted</label>
+      </div>
+      <div>
+        <button type="button" [disabled]="!entityForm.valid" (click)="saveEntity()">Submit</button>
+      </div>
+    </div>
+  </form>
+</ng-container>

@@ -1,5 +1,9 @@
 <h1 id="tableLabel">Sanctioned Entities</h1>
 
+<app-sanctioned-entity-form
+ [(entities)]="entities">
+</app-sanctioned-entity-form>
+
 <p *ngIf="!entities"><em>Loading...</em></p>
 
 <table class='table table-striped' aria-labelledby="tableLabel" *ngIf="entities">
@@ -19,3 +23,5 @@
     </tr>
     </tbody>
 </table>
+
+
