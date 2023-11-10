@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
+using ajg_technical_interview.Models.Requests;
 using ajg_technical_interview.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -20,19 +20,34 @@ namespace ajg_technical_interview.Controllers
 
 
         [HttpGet]
-        public async Task<IActionResult> GetSanctionedEntities()
+        public async Task<IActionResult> GetSanctionedEntities(CancellationToken cancellationToken)
         {
             try
-            {
-                var entities = await _databaseService.GetSanctionedEntitiesAsync();
+            {      
+                var entities = await _databaseService.GetSanctionedEntitiesAsync(cancellationToken);
+
                 return Ok(entities);
             }
             catch (Exception ex)
             {
                 return Problem(ex.Message);
             }
-            
         }
 
+        [HttpPost]
+        public async Task<IActionResult> AddSanctionedEntity([FromBody] AddSanctionedEntityRequest request, CancellationToken cancellationToken)
+        {
+            try
+            {
+                await _databaseService.ValidateAddSanctionedEntityAsync(request, cancellationToken);
+                var entities = await _databaseService.CreateSanctionedEntityAsync(request, cancellationToken);
+
+                return Ok(entities);
+            }
+            catch (Exception ex)
+            {
+                return Problem(ex.Message);
+            }
+        }
     }
 }
