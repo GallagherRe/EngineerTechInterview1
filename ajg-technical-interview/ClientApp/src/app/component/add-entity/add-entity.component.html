@@ -1,0 +1,49 @@
+<h1 id="tableLabel">Add your entity here</h1>
+
+<div>
+  <form #contactForm="ngForm" (ngSubmit)="onSubmit(contactForm)">
+
+    <div style="display:flex;flex-direction:column;">
+
+      <div class="formRow">
+        <div style="display:inline-block">
+          <label style="width:200px" for="entityname">Entity Name</label>
+        </div>
+        <div style="display:inline-block">
+          <input style="width:200px" required type="text" id="entityname" name="name" #entityname="ngModel" ngModel #name="ngModel">
+        </div>
+        <div style="display: inline-block;width:200px; height: 8px" *ngIf="name.invalid && (name.dirty || name.touched)" class="alert">
+          <div *ngIf="name.errors?.['required']">Name is required.</div>
+        </div>
+      </div>
+
+      <div class="formRow">
+        <div style="display:inline-block">
+          <label style="width:200px" for="domicile">Domicile</label>
+        </div>
+        <div style="display:inline-block">
+          <input style="width:200px" required type="text" id="domicile" name="domicile" #domicile="ngModel" ngModel #name="ngModel">
+        </div>
+        <div style="display:inline-block" *ngIf="domicile.invalid && (domicile.dirty || domicile.touched)" class="alert">
+          <div *ngIf="domicile.errors?.['required']">Domicile is required.</div>
+        </div>
+      </div>
+
+      <div class="formRow">
+        <div class="custom-control custom-switch">
+          <input type="checkbox" class="custom-control-input" id="accepted" name="accepted" ngModel>
+          <label class="custom-control-label" for="accepted">Accepted</label>
+        </div>
+      </div>
+
+      <div class="formRow">
+        <button type="submit" [disabled]="contactForm.form.invalid" ng-required="name">Add Sanctioned Entity</button>
+      </div>
+
+        <div class="formRow">
+          <div class="failure">{{this.postFailureReason}}</div>
+          <div class="success">{{this.postSuccessMessage}}</div>
+        </div>
+      </div>
+</form>
+</div>

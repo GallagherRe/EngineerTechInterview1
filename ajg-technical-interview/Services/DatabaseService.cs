@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using ajg_technical_interview.Models;
+﻿using ajg_technical_interview.Models;
 
 namespace ajg_technical_interview.Services
 {
@@ -26,15 +22,27 @@ namespace ajg_technical_interview.Services
             return await Task.FromResult(entities);
         }
 
-        public async Task<SanctionedEntity> GetSanctionedEntityByIdAsync(Guid id)
-        {
-            return await Task.FromResult(SanctionedEntities.First(e => e.Id.Equals(id)));
-        }
+        public async Task<SanctionedEntity> GetSanctionedEntityByIdAsync(Guid id) => 
+            await Task.FromResult(SanctionedEntities.First(e => e.Id.Equals(id)));
+        
+
+        public bool EntityExists(SanctionedEntity sanctionedEntity) => 
+            SanctionedEntities.Any(x => 
+                                   x.Name.Trim().ToLower() == sanctionedEntity.Name.Trim().ToLower() && 
+                                   x.Domicile.Trim().ToLower() == sanctionedEntity.Domicile.Trim().ToLower());
+        
 
         public async Task<SanctionedEntity> CreateSanctionedEntityAsync(SanctionedEntity sanctionedEntity)
         {
-            SanctionedEntities.Add(sanctionedEntity);
-            return await Task.FromResult(sanctionedEntity);
+            if (!EntityExists(sanctionedEntity))
+            {
+                SanctionedEntities.Add(sanctionedEntity);
+                return await Task.FromResult(sanctionedEntity);
+            }
+            else
+            {
+                throw new Exception($"Entity {sanctionedEntity.Name} already exists");
+            }
         }
     }
 }

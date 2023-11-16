@@ -1,6 +1,6 @@
 export class SanctionedEntity {
-  id: string;
-  name: string;
-  domicile: string;
-  accepted: boolean;
+  id: string = "0";
+  name: string = "";
+  domicile: string = "";
+  accepted: boolean = false;
 }
