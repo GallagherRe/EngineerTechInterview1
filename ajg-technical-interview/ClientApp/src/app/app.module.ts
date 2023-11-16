@@ -1,15 +1,17 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
-import { NavMenuComponent } from './components/nav-menu/nav-menu.component';
-import { HomeComponent } from './components/home/home.component';
-import { CounterComponent } from './components/counter/counter.component';
-import { SanctionedEntitiesComponent } from './components/sanctioned-entities/sanctioned-entities.component';
-import { JumbotronCounterComponent } from './components/jumbotron-counter/jumbotron-counter.component';
+import { NavMenuComponent } from './component/nav-menu/nav-menu.component';
+import { HomeComponent } from './component/home/home.component';
+import { CounterComponent } from './component/counter/counter.component';
+import { SanctionedEntitiesComponent } from './component/sanctioned-entities/sanctioned-entities.component';
+import { JumbotronCounterComponent } from './component/jumbotron-counter/jumbotron-counter.component';
+import { AddEntityComponent } from './component/add-entity/add-entity.component';
+
 
 @NgModule({
   declarations: [
@@ -18,19 +20,25 @@ import { JumbotronCounterComponent } from './components/jumbotron-counter/jumbot
     HomeComponent,
     CounterComponent,
     SanctionedEntitiesComponent,
-    JumbotronCounterComponent
+    JumbotronCounterComponent,
+    AddEntityComponent
   ],
   imports: [
-    BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
+    BrowserModule,
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
-      { path: 'counter', component: CounterComponent },
+      { path: 'counter',  component: CounterComponent },
       { path: 'sanctioned-entities', component: SanctionedEntitiesComponent },
+      { path: 'add-entity', component: AddEntityComponent },
+
     ])
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+  counter = 0;
+}

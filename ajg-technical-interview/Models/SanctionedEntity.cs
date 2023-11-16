@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Xml.Linq;
 
 namespace ajg_technical_interview.Models
 {
@@ -10,3 +11,4 @@ namespace ajg_technical_interview.Models
         public bool Accepted { get; set; }
     }
 }
+

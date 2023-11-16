@@ -1,26 +1,76 @@
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using ajg_technical_interview.Services;
+//using Microsoft.AspNetCore.SpaServices.AngularCli;
 
-namespace ajg_technical_interview
+string CorsSpec = "CorsSpec";
+
+var builder = WebApplication.CreateBuilder(args);
+
+// Add services to the container.
+
+builder.Services.AddControllers();
+// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
+builder.Services.AddSingleton<IDatabaseService, DatabaseService>();
+
+builder.Services.AddCors(options =>
 {
-    public class Program
-    {
-        public static void Main(string[] args)
-        {
-            CreateHostBuilder(args).Build().Run();
-        }
+    options.AddPolicy(name: CorsSpec,
+                      builder =>
+                      {
+                          builder.AllowAnyOrigin();
+                          builder.AllowAnyMethod();
+                          builder.AllowAnyHeader();
+                      });
+});
 
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder =>
-                {
-                    webBuilder.UseStartup<Startup>();
-                });
-    }
+builder.Services.AddSpaStaticFiles(configuration =>
+{
+    configuration.RootPath = "ClientApp/dist/angularapp";
+});
+
+var app = builder.Build();
+
+app.UseSpaStaticFiles();
+
+app.UseCors(CorsSpec);
+
+app.UseSpa(spa =>
+{
+    // To learn more about options for serving an Angular SPA from ASP.NET Core,
+    // see https://go.microsoft.com/fwlink/?linkid=864501
+
+    spa.Options.SourcePath = "ClientApp";
+
+    // if (env.IsDevelopment())
+    //   {
+    //        spa.UseProxyToSpaDevelopmentServer("http://localhost:4200");
+
+    //                         spa.UseAngularCliServer(npmScript: "start");
+    //  }
+});
+
+
+
+//app.UseSpaStaticFiles();
+
+// Configure the HTTP request pipeline.
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
 }
+//else
+//{
+//    app.UseDefaultFiles();
+//    app.UseStaticFiles();
+//}
+
+app.UseHttpsRedirection();
+
+app.UseAuthorization();
+
+app.MapControllers();
+
+app.Run();
