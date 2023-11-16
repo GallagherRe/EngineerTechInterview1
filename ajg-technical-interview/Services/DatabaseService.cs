@@ -1,24 +1,28 @@
-﻿using System;
+﻿using ajg_technical_interview.ClientApp.Repositories;
+using ajg_technical_interview.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using ajg_technical_interview.Models;
 
 namespace ajg_technical_interview.Services
 {
     public class DatabaseService : IDatabaseService
     {
-        private static readonly IList<SanctionedEntity> SanctionedEntities = new List<SanctionedEntity>
+        readonly IRepository<SanctionedEntity> _repository;
+        public DatabaseService(IRepository<SanctionedEntity> repository)
         {
-            new SanctionedEntity { Name = "Forbidden Company", Domicile = "Mars", Accepted = false },
-            new SanctionedEntity { Name = "Allowed Company", Domicile = "Venus", Accepted = true },
-            new SanctionedEntity { Name = "Good Ltd", Domicile = "Saturn", Accepted = true },
-            new SanctionedEntity { Name = "Evil Plc", Domicile = "Venus", Accepted = false }
-        };
+            _repository = repository;
+
+            _repository.Add(new SanctionedEntity { Name = "Forbidden Company", Domicile = "Mars", Accepted = false });
+            _repository.Add(new SanctionedEntity { Name = "Allowed Company", Domicile = "Venus", Accepted = true });
+            _repository.Add(new SanctionedEntity { Name = "Good Ltd", Domicile = "Saturn", Accepted = true });
+            _repository.Add(new SanctionedEntity { Name = "Evil Plc", Domicile = "Venus", Accepted = false });
+        }
 
         public async Task<IList<SanctionedEntity>> GetSanctionedEntitiesAsync()
         {
-            var entities = SanctionedEntities
+            var entities = _repository.GetAll()
                 .OrderBy(e => e.Name)
                 .ThenBy(e => e.Domicile)
                 .ToList();
@@ -28,12 +32,12 @@ namespace ajg_technical_interview.Services
 
         public async Task<SanctionedEntity> GetSanctionedEntityByIdAsync(Guid id)
         {
-            return await Task.FromResult(SanctionedEntities.First(e => e.Id.Equals(id)));
+            return await Task.FromResult(_repository.GetById(id));
         }
 
         public async Task<SanctionedEntity> CreateSanctionedEntityAsync(SanctionedEntity sanctionedEntity)
         {
-            SanctionedEntities.Add(sanctionedEntity);
+            _repository.Add(sanctionedEntity);
             return await Task.FromResult(sanctionedEntity);
         }
     }
