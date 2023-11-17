@@ -1,4 +1,6 @@
+using ajg_technical_interview.ClientApp.Repositories;
 using ajg_technical_interview.Services;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
@@ -20,13 +22,15 @@ namespace ajg_technical_interview
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews();
+            services.AddControllersWithViews()
+                .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<Startup>());
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
                 configuration.RootPath = "ClientApp/dist";
             });
 
+            services.AddSingleton(typeof(IRepository<>), typeof(Repository<>));
             services.AddSingleton<IDatabaseService, DatabaseService>();
         }
 

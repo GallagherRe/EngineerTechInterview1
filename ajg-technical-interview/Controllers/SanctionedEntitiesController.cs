@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using ajg_technical_interview.Models;
 using ajg_technical_interview.Services;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Threading.Tasks;
 
 namespace ajg_technical_interview.Controllers
 {
@@ -18,9 +17,8 @@ namespace ajg_technical_interview.Controllers
             _databaseService = databaseService;
         }
 
-
         [HttpGet]
-        public async Task<IActionResult> GetSanctionedEntities()
+        public async Task<IActionResult> GetSanctionedEntitiesASync()
         {
             try
             {
@@ -31,8 +29,28 @@ namespace ajg_technical_interview.Controllers
             {
                 return Problem(ex.Message);
             }
-            
+
         }
 
+        [HttpGet("{id:Guid}")]
+        public async Task<IActionResult> GetByIdAsync(Guid id)
+        {
+            var entity = await _databaseService.GetSanctionedEntityByIdAsync(id);
+
+            return entity.Match<IActionResult>(
+               sanctionedEntity => Ok(entity),
+               notFound => NotFound());
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateAsync(CreateSanctionedEntity entity)
+        {
+            SanctionedEntity sanctionedEntity = entity.MapToSanctionedEntity();
+            var result = await _databaseService.CreateSanctionedEntityAsync(sanctionedEntity);
+
+            return result.Match<IActionResult>(
+                sanctionedEntity => CreatedAtAction(nameof(GetByIdAsync), new { id = sanctionedEntity.Id }, entity),
+                IsNotUnique => BadRequest("Duplicate Name and Domicle"));
+        }
     }
 }

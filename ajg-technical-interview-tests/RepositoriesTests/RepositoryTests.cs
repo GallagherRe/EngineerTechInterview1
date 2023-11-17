@@ -34,7 +34,6 @@ namespace ajg_technical_interview_tests.RepositoriesTests
             _repository.Add(entity);
             Assert.Throws<InvalidOperationException>(() => _repository.Add(entity));
 
-
         }
 
         [Fact]
@@ -46,17 +45,6 @@ namespace ajg_technical_interview_tests.RepositoriesTests
             var retrievedEntity = _repository.GetById(entity.Id);
 
             Assert.Equal(entity, retrievedEntity);
-        }
-
-        [Fact]
-        public void Delete_RemovesEntityWithGivenId()
-        {
-            var entity = new SanctionedEntity { Name = "Entity3", Domicile = "Domicile3", Accepted = true };
-            _repository.Add(entity);
-
-            _repository.Delete(entity.Id);
-
-            Assert.DoesNotContain(entity, _repository.GetAll());
         }
     }
 }

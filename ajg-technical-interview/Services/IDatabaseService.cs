@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using ajg_technical_interview.ClientApp.ResponseTypes;
 using ajg_technical_interview.Models;
+using OneOf;
+using OneOf.Types;
 
 namespace ajg_technical_interview.Services
 {
@@ -9,8 +12,8 @@ namespace ajg_technical_interview.Services
     {
         Task<IList<SanctionedEntity>> GetSanctionedEntitiesAsync();
 
-        Task<SanctionedEntity> GetSanctionedEntityByIdAsync(Guid id);
+        Task<OneOf<SanctionedEntity, NotFound>> GetSanctionedEntityByIdAsync(Guid id);
 
-        Task<SanctionedEntity> CreateSanctionedEntityAsync(SanctionedEntity sanctionedEntity);
+        Task<OneOf<SanctionedEntity, IsNotUnique>> CreateSanctionedEntityAsync(SanctionedEntity sanctionedEntity);
     }
 }

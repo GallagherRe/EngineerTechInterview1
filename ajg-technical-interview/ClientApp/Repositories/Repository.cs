@@ -6,10 +6,9 @@ using System.Linq;
 
 namespace ajg_technical_interview.ClientApp.Repositories
 {
-    public class Repository<T> : IRepository<T> where T : Entity
+    public class Repository<T> : IRepository<T> where T : BaseEntity
     {
         private ConcurrentBag<T> _entities = new ConcurrentBag<T>();
-
 
         public void Add(T entity)
         {
@@ -23,17 +22,7 @@ namespace ajg_technical_interview.ClientApp.Repositories
 
         public IEnumerable<T> GetAll() => _entities;
 
-        public T GetById(Guid id) =>
-            _entities.FirstOrDefault(e => e.Id == id);
-
-        public void Delete(Guid id)
-        {
-            var entityToDelete = _entities.FirstOrDefault(e => e.Id == id);
-            if (entityToDelete != null)
-            {
-                var newBag = new ConcurrentBag<T>(_entities.Where(e => e.Id != id));
-                _entities = newBag;
-            }
-        }
+        public T GetById(Guid id) => _entities.FirstOrDefault(e => e.Id == id);
+        public IEnumerable<T> Get(Func<T, bool> predicate) => _entities.Where(predicate);
     }
 }

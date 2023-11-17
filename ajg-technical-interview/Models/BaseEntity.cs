@@ -2,9 +2,9 @@
 
 namespace ajg_technical_interview.Models
 {
-    public class Entity
+    public class BaseEntity
     {
-        public Entity()
+        public BaseEntity()
         {
             Id = Guid.NewGuid();
         }
