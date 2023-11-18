@@ -19,9 +19,7 @@ namespace ajg_technical_interview.ClientApp.Repositories
 
             _entities.Add(entity);
         }
-
         public IEnumerable<T> GetAll() => _entities;
-
         public T GetById(Guid id) => _entities.FirstOrDefault(e => e.Id == id);
         public IEnumerable<T> Get(Func<T, bool> predicate) => _entities.Where(predicate);
     }

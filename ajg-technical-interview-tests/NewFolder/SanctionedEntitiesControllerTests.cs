@@ -58,7 +58,6 @@ namespace ajg_technical_interview_tests.NewFolder
             Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
         }
 
-
         [Fact]
         public async Task CreateAsync_ReturnsCreatedBadResult_WithDuplicateSanctionedEntity()
         {

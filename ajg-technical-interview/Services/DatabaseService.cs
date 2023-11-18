@@ -33,8 +33,6 @@ namespace ajg_technical_interview.Services
             return await Task.FromResult(entities);
         }
 
-
-
         public async Task<OneOf<SanctionedEntity, IsNotUnique>> CreateSanctionedEntityAsync(SanctionedEntity sanctionedEntity)
         {
             bool isUnique = await IsUniqueAsync(sanctionedEntity);
