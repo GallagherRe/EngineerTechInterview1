@@ -4,7 +4,7 @@ using FluentValidation;
 namespace ajg_technical_interview
 {
 
-    public class SanctionedEntityValidator : AbstractValidator<CreateSanctionedEntity>
+    public class SanctionedEntityValidator : AbstractValidator<CreateSanctionedModel>
     {
         public SanctionedEntityValidator()
         {

@@ -36,7 +36,7 @@ namespace ajg_technical_interview_tests.NewFolder
         {
             var client = _factory.CreateClient();
 
-            var newEntity = new CreateSanctionedEntity { Domicile ="Entity", Name="Name" };
+            var newEntity = new CreateSanctionedModel { Domicile ="Entity", Name="Name" };
             var response = await client.PostAsJsonAsync(SanctionApi,newEntity);
 
             Assert.Equal(HttpStatusCode.Created, response.StatusCode);    
@@ -52,7 +52,7 @@ namespace ajg_technical_interview_tests.NewFolder
         {
             var client = _factory.CreateClient();
 
-            var newEntity = new CreateSanctionedEntity();
+            var newEntity = new CreateSanctionedModel();
             var response = await client.PostAsJsonAsync(SanctionApi, newEntity);
 
             Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
@@ -63,7 +63,7 @@ namespace ajg_technical_interview_tests.NewFolder
         {
             var client = _factory.CreateClient();
 
-            var newEntity = new CreateSanctionedEntity { Domicile = "Entity", Name = "Name" };
+            var newEntity = new CreateSanctionedModel { Domicile = "Entity", Name = "Name" };
             await client.PostAsJsonAsync(SanctionApi, newEntity);
             var response = await client.PostAsJsonAsync(SanctionApi, newEntity);
 

@@ -2,7 +2,7 @@
 
 namespace ajg_technical_interview.Models
 {
-    public class CreateSanctionedEntity
+    public class CreateSanctionedModel
     {
         public string Name { get; set; }
         public string Domicile { get; set; }

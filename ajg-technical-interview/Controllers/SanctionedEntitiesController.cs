@@ -1,7 +1,11 @@
-﻿using ajg_technical_interview.Models;
+﻿using ajg_technical_interview.ClientApp.ResponseTypes;
+using ajg_technical_interview.Models;
 using ajg_technical_interview.Services;
 using Microsoft.AspNetCore.Mvc;
+using OneOf;
+using OneOf.Types;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace ajg_technical_interview.Controllers
@@ -22,7 +26,7 @@ namespace ajg_technical_interview.Controllers
         {
             try
             {
-                var entities = await _databaseService.GetSanctionedEntitiesAsync();
+                IList<SanctionedEntity> entities = await _databaseService.GetSanctionedEntitiesAsync();
                 return Ok(entities);
             }
             catch (Exception ex)
@@ -35,7 +39,7 @@ namespace ajg_technical_interview.Controllers
         [HttpGet("{id:Guid}")]
         public async Task<IActionResult> GetByIdAsync(Guid id)
         {
-            var entity = await _databaseService.GetSanctionedEntityByIdAsync(id);
+            OneOf<SanctionedEntity, NotFound> entity = await _databaseService.GetSanctionedEntityByIdAsync(id);
 
             return entity.Match<IActionResult>(
                sanctionedEntity => Ok(entity),
@@ -43,13 +47,13 @@ namespace ajg_technical_interview.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateAsync(CreateSanctionedEntity entity)
+        public async Task<IActionResult> CreateAsync(CreateSanctionedModel createSanctioned)
         {
-            SanctionedEntity sanctionedEntity = entity.MapToSanctionedEntity();
-            var result = await _databaseService.CreateSanctionedEntityAsync(sanctionedEntity);
+            SanctionedEntity sanctionedEntity = createSanctioned.MapToSanctionedEntity();
+            OneOf<SanctionedEntity, IsNotUnique> result = await _databaseService.CreateSanctionedEntityAsync(sanctionedEntity);
 
             return result.Match<IActionResult>(
-                sanctionedEntity => CreatedAtAction(nameof(GetByIdAsync), new { id = sanctionedEntity.Id }, entity),
+                sanctionedEntity => CreatedAtAction(nameof(GetByIdAsync), new { id = sanctionedEntity.Id }, createSanctioned),
                 IsNotUnique => BadRequest("Duplicate Name and Domicle"));
         }
     }

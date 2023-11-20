@@ -47,7 +47,10 @@ namespace ajg_technical_interview.Services
 
         private async Task<bool> IsUniqueAsync(SanctionedEntity entity)
         {
-            bool isUnique = !_repository.Get(x => x.Name == entity.Name && x.Domicile == entity.Domicile).Any();
+            bool isUnique = !_repository.Get(x => 
+                x.Name.Equals(entity.Name, StringComparison.OrdinalIgnoreCase) && 
+                x.Domicile.Equals(entity.Domicile, StringComparison.OrdinalIgnoreCase)).
+                Any();
             return await Task.FromResult(isUnique);
         }
 
