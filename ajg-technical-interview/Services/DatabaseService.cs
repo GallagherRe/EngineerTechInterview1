@@ -60,7 +60,7 @@ namespace ajg_technical_interview.Services
 
             if (res == null)
             {
-                new NotFound();
+               return new NotFound();
             }
 
             return res;
