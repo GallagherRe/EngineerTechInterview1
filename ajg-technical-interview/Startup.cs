@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.OpenApi.Models;
 
 namespace ajg_technical_interview
 {
@@ -29,7 +30,15 @@ namespace ajg_technical_interview
             {
                 configuration.RootPath = "ClientApp/dist";
             });
-
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Version = "v1",
+                    Title = "Sanctioned Entities API",
+                    Description = "An API for managing sanctioned entities",
+                });
+            });
             services.AddSingleton(typeof(IRepository<>), typeof(Repository<>));
             services.AddSingleton<IDatabaseService, DatabaseService>();
         }
@@ -47,6 +56,12 @@ namespace ajg_technical_interview
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Sanctioned Entities API V1");
+            });
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
