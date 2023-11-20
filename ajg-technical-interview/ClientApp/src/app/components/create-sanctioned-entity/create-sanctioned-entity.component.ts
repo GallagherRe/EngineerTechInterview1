@@ -1,10 +1,9 @@
 import { Component, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { SanctionedEntitiesService } from '../../services/sanctioned-entities.service';
-import { SanctionedEntity } from '../../models/sanctioned-entity';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { CreateSanctiedEntity } from '../../models/create-sanctioned-entity';
+import { CreateSanctionedEntity } from '../../models/create-sanctioned-entity';
 
 
 @Component({
@@ -46,9 +45,9 @@ export class CreateSanctionedEntityComponent implements OnDestroy {
     }
 
     this.sanctionedEntitiesService
-      .createSanctionedEntity(this.createSanctionedFormGroup.value as CreateSanctiedEntity)
+        .createSanctionedEntity(this.createSanctionedFormGroup.value as CreateSanctionedEntity)
       .pipe(takeUntil(this.createSubject))
-      .subscribe((sanctioned: CreateSanctiedEntity) => {
+        .subscribe((sanctioned: CreateSanctionedEntity) => {
         this.successfulSave(sanctioned);
       }, (error) => {
         this.errorSaving(error);
@@ -64,7 +63,7 @@ export class CreateSanctionedEntityComponent implements OnDestroy {
     }
   }
 
-  public successfulSave(sanctioned: CreateSanctiedEntity): void {
+    public successfulSave(sanctioned: CreateSanctionedEntity): void {
     this.errorMessage = '';
     this.successMessage = `${sanctioned.name} - ${sanctioned.domicile} has been saved`;
     this.createSanctionedFormGroup.reset(this.initialValues);

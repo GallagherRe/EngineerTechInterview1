@@ -2,7 +2,7 @@ import { Inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { SanctionedEntity } from '../models/sanctioned-entity';
 import { Observable } from 'rxjs';
-import { CreateSanctiedEntity } from '../models/create-sanctioned-entity';
+import { CreateSanctionedEntity } from '../models/create-sanctioned-entity';
 
 @Injectable({
   providedIn: 'root'
@@ -20,8 +20,8 @@ export class SanctionedEntitiesService {
     return this.http.get<SanctionedEntity[]>(this.apiUrl);
   }
 
-    public createSanctionedEntity(sanctionedEntity: CreateSanctiedEntity): Observable<CreateSanctiedEntity> {
-     return this.http.post<SanctionedEntity>(this.apiUrl, sanctionedEntity);
+  public createSanctionedEntity(sanctionedEntity: CreateSanctionedEntity): Observable<CreateSanctionedEntity> {
+    return this.http.post<CreateSanctionedEntity>(this.apiUrl, sanctionedEntity);
   }
 
 }

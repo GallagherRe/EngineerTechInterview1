@@ -4,7 +4,7 @@ import { of, Subject } from 'rxjs';
 import { CreateSanctionedEntityComponent } from './create-sanctioned-entity.component';
 import { SanctionedEntitiesService } from '../../services/sanctioned-entities.service';
 import { SanctionedEntity } from '../../models/sanctioned-entity';
-import { CreateSanctiedEntity } from '../../models/create-sanctioned-entity';
+import { CreateSanctionedEntity } from '../../models/create-sanctioned-entity';
 
 describe('CreateSanctionedEntityComponent', () => {
     let component: CreateSanctionedEntityComponent;
@@ -47,7 +47,7 @@ describe('CreateSanctionedEntityComponent', () => {
 
         component.createSanctionedFormGroup.setValue(mockSanctionedEntity);
 
-        sanctionedEntitiesServiceSpy.createSanctionedEntity.and.returnValue(of(mockSanctionedEntity as SanctionedEntity));
+        sanctionedEntitiesServiceSpy.createSanctionedEntity.and.returnValue(of(mockSanctionedEntity as CreateSanctionedEntity));
 
         component.onSubmit();
 
@@ -57,7 +57,7 @@ describe('CreateSanctionedEntityComponent', () => {
     it('should handle successful form submission', () => {
         const mockSanctionedEntity = { name: 'John Doe', domicile: 'Some Place', accepted: false };
 
-        component.successfulSave(mockSanctionedEntity as CreateSanctiedEntity);
+        component.successfulSave(mockSanctionedEntity as CreateSanctionedEntity);
 
         expect(component.errorMessage).toEqual('');
         expect(component.successMessage).toEqual(`${mockSanctionedEntity.name} - ${mockSanctionedEntity.domicile} has been saved`);

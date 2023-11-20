@@ -1,5 +1,5 @@
-import { CreateSanctiedEntity } from './create-sanctioned-entity';
+import { CreateSanctionedEntity } from "./create-sanctioned-entity";
 
-export class SanctionedEntity extends CreateSanctiedEntity {
+export class SanctionedEntity extends CreateSanctionedEntity {
   id: string;
 }
