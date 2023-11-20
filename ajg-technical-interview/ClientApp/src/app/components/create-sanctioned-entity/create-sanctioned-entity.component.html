@@ -1,0 +1,39 @@
+<div *ngIf="errorMessage && !successMessage" class="alert alert-danger" role="alert">
+    {{ errorMessage }}
+</div>
+<div *ngIf="successMessage && !errorMessage" class="alert alert-success" role="alert">
+    {{ successMessage }}
+</div>
+<form [formGroup]="createSanctionedFormGroup" (ngSubmit)="onSubmit()" class="form-group">
+    <label for="name">Name</label>
+    <input id="name" type="text" formControlName="name" class="form-control" />
+    <div *ngIf="
+        createSanctionedFormGroup.controls.name.invalid &&
+        (createSanctionedFormGroup.controls.name.dirty ||
+          createSanctionedFormGroup.controls.name.touched)
+      " class="alert alert-danger">
+
+        Name is required.
+    </div>
+
+    <label for="domicile">Domicile</label>
+    <input id="domicile" type="text" formControlName="domicile" class="form-control" />
+    <div *ngIf="
+        createSanctionedFormGroup.controls.domicile.invalid &&
+        (createSanctionedFormGroup.controls.domicile.dirty ||
+          createSanctionedFormGroup.controls.domicile.touched)
+      " class="alert alert-danger">
+        Domicile is required.
+    </div>
+
+    <div class="form-check custom-control custom-switch pt-3 pb-3">
+        <input type="checkbox" class="custom-control-input" id="accepted" 
+               formControlName="accepted"
+               (change)="onStatusChange($event)">
+        <label class="custom-control-label" for="accepted"> {{statusText}} Status</label>
+    </div>
+    <div>
+        <button type="submit" class="btn btn-primary mr-3">Submit</button>
+        <button type="reset" class="btn btn-primary">Reset</button>
+    </div>
+</form>

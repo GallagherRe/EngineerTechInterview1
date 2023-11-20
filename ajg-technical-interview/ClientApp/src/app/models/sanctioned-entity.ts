@@ -1,6 +1,5 @@
-export class SanctionedEntity {
+import { CreateSanctiedEntity } from './create-sanctioned-entity';
+
+export class SanctionedEntity extends CreateSanctiedEntity {
   id: string;
-  name: string;
-  domicile: string;
-  accepted: boolean;
 }

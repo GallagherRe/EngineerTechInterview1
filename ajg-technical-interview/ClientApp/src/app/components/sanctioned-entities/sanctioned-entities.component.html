@@ -4,18 +4,18 @@
 
 <table class='table table-striped' aria-labelledby="tableLabel" *ngIf="entities">
     <thead>
-    <tr>
-        <th>Name</th>
-        <th>Domicile</th>
-        <th>Status</th>
-    </tr>
+        <tr>
+            <th>Name</th>
+            <th>Domicile</th>
+            <th>Status</th>
+        </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let entity of entities">
-        <td>{{ entity.name }}</td>
-        <td>{{ entity.domicile }}</td>
-        <td *ngIf="entity.accepted" class="text-success">Accepted</td>
-        <td *ngIf="!entity.accepted" class="text-danger">Rejected</td>
-    </tr>
+        <tr *ngFor="let entity of entities">
+            <td>{{ entity.name }}</td>
+            <td>{{ entity.domicile }}</td>
+            <td *ngIf="entity.accepted" class="text-success">Accepted</td>
+            <td *ngIf="!entity.accepted" class="text-danger">Rejected</td>
+        </tr>
     </tbody>
 </table>
